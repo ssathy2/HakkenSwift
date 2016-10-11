@@ -1,0 +1,6 @@
+source 'https://github.com/CocoaPods/Specs.git'
+pod 'AFNetworking', '~> 2.0'
+pod 'ReactiveCocoa', '2.4.7'
+pod 'CocoaLumberjack'
+pod 'DTCoreText'
+pod 'Realm', '0.89.2'
