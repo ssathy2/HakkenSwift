@@ -1,68 +1,38 @@
 PODS:
-  - AFNetworking (2.6.0):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-    - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.6.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.0)
-  - AFNetworking/Security (2.6.0)
-  - AFNetworking/Serialization (2.6.0)
-  - AFNetworking/UIKit (2.6.0):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-  - CocoaLumberjack (2.0.1):
-    - CocoaLumberjack/Default
-    - CocoaLumberjack/Extensions
-  - CocoaLumberjack/Core (2.0.1)
-  - CocoaLumberjack/Default (2.0.1):
+  - Alamofire (4.0.1)
+  - Argo (4.0.0):
+    - Runes (>= 4.0.0)
+  - CocoaLumberjack/Core (3.0.0)
+  - CocoaLumberjack/Default (3.0.0):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.0.1):
+  - CocoaLumberjack/Extensions (3.0.0):
     - CocoaLumberjack/Default
-  - DTCoreText (1.6.16):
-    - DTFoundation/Core (~> 1.7.5)
-    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
-    - DTFoundation/DTHTMLParser (~> 1.7.5)
-    - DTFoundation/UIKit (~> 1.7.5)
-  - DTFoundation/Core (1.7.7)
-  - DTFoundation/DTAnimatedGIF (1.7.7)
-  - DTFoundation/DTHTMLParser (1.7.7):
-    - DTFoundation/Core
-  - DTFoundation/UIKit (1.7.7):
-    - DTFoundation/Core
-  - ReactiveCocoa (2.4.7):
-    - ReactiveCocoa/UI
-  - ReactiveCocoa/Core (2.4.7):
-    - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.4.7)
-  - ReactiveCocoa/UI (2.4.7):
-    - ReactiveCocoa/Core
-  - Realm (0.89.2):
-    - Realm/Headers
-  - Realm/Headers (0.89.2)
+  - CocoaLumberjack/Swift (3.0.0):
+    - CocoaLumberjack/Extensions
+  - Realm (2.0.2):
+    - Realm/Headers (= 2.0.2)
+  - Realm/Headers (2.0.2)
+  - RealmSwift (2.0.2):
+    - Realm (= 2.0.2)
+  - Runes (4.0.0)
+  - RxSwift (3.0.0-beta.2)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.0)
-  - CocoaLumberjack
-  - DTCoreText
-  - ReactiveCocoa (= 2.4.7)
-  - Realm (= 0.89.2)
+  - Alamofire (~> 4.0)
+  - Argo
+  - CocoaLumberjack/Swift
+  - RealmSwift
+  - RxSwift (= 3.0.0-beta.2)
 
 SPEC CHECKSUMS:
-  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
-  CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
-  DTCoreText: 934a16fe9ffdd169c96261721b39dc312b75713d
-  DTFoundation: c9b3362b83f0017389082ec067ede719826a579d
-  ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
-  Realm: 66d433a705f1d1ff0d574d5d646986514448dacc
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  Argo: e808d20ee2e95c4498276ca1812d75d3b0b00090
+  CocoaLumberjack: c823149bccc5519a9447aeb433be7b1212a7d6a5
+  Realm: 0f5a194af0b7e6158b83db41b4ee1a00be7ddf1a
+  RealmSwift: 0eb5070d851cba7c66e841ca756d83609dc78bc8
+  Runes: 423ee2dac4dedb4626a859c0962c934195ba8433
+  RxSwift: 0ea939d7d97cb70657190ffde8dc2a9b455778fc
 
-COCOAPODS: 0.34.4
+PODFILE CHECKSUM: bc03ea3b859ab6130b2a495a1e13ef04ea5aaaf1
+
+COCOAPODS: 1.0.1
