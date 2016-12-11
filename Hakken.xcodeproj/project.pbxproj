@@ -10,6 +10,8 @@
 		6EE7E5D992FFB92D2F2F263F /* Pods_Hakken.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF4B25274871FAE1CE17FC8 /* Pods_Hakken.framework */; };
 		DE5D39301DAD85450075E5BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE5D392F1DAD85450075E5BC /* LaunchScreen.storyboard */; };
 		DE5D39321DAD855B0075E5BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE5D39311DAD855B0075E5BC /* Main.storyboard */; };
+		DE620D341DF47678005781B0 /* Dictionary+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE620D331DF47678005781B0 /* Dictionary+Serialization.swift */; };
+		DE620D381DF47B57005781B0 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE620D371DF47B57005781B0 /* DateFormatterManager.swift */; };
 		DE64E3E41DAD8838001987E5 /* HackernewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE64E3E31DAD8838001987E5 /* HackernewsModel.swift */; };
 		DE64E3E61DAD8845001987E5 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE64E3E51DAD8845001987E5 /* Story.swift */; };
 		DE64E3E81DAD884E001987E5 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE64E3E71DAD884E001987E5 /* Comment.swift */; };
@@ -23,6 +25,8 @@
 		5EF4B25274871FAE1CE17FC8 /* Pods_Hakken.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hakken.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE5D392F1DAD85450075E5BC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE5D39311DAD855B0075E5BC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		DE620D331DF47678005781B0 /* Dictionary+Serialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Serialization.swift"; sourceTree = "<group>"; };
+		DE620D371DF47B57005781B0 /* DateFormatterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		DE64E3E31DAD8838001987E5 /* HackernewsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HackernewsModel.swift; sourceTree = "<group>"; };
 		DE64E3E51DAD8845001987E5 /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		DE64E3E71DAD884E001987E5 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -88,6 +92,22 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		DE620D321DF47653005781B0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DE620D331DF47678005781B0 /* Dictionary+Serialization.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DE620D361DF47B40005781B0 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				DE620D371DF47B57005781B0 /* DateFormatterManager.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		DE991DB51BB0CCB5007C489E = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +131,8 @@
 		DE991DC01BB0CCB5007C489E /* Hakken */ = {
 			isa = PBXGroup;
 			children = (
+				DE620D361DF47B40005781B0 /* Utilities */,
+				DE620D321DF47653005781B0 /* Extensions */,
 				DE5D392B1DAD84F20075E5BC /* Models */,
 				DE5D392C1DAD84F20075E5BC /* Services */,
 				DE5D392D1DAD84F20075E5BC /* ViewModels */,
@@ -263,7 +285,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -274,8 +296,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE64E3E41DAD8838001987E5 /* HackernewsModel.swift in Sources */,
+				DE620D341DF47678005781B0 /* Dictionary+Serialization.swift in Sources */,
 				DE991DC21BB0CCB5007C489E /* AppDelegate.swift in Sources */,
 				DE64E3E61DAD8845001987E5 /* Story.swift in Sources */,
+				DE620D381DF47B57005781B0 /* DateFormatterManager.swift in Sources */,
 				DE64E3E81DAD884E001987E5 /* Comment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -6,7 +6,6 @@ target 'Hakken' do
     pod 'CocoaLumberjack/Swift'
     pod 'RealmSwift'
     pod 'Alamofire', '~> 4.0'
-    pod 'Argo'
     pod 'RxSwift', '3.0.0-beta.2'
 end
 

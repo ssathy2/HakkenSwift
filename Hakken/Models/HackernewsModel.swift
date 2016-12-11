@@ -7,23 +7,68 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
-//"by": "trkulja",
-//"id": 10284607,
-//"parent": 10284321,
-//"text": "Hey guys,<p>Damjan asked me to post a comment here, he says he is sorry but HN is not allowing him to respond to all coments quick enough. But stay assured he will anwer each and every question. :)<p>Cheers.",
-//"time": 1443305735,
-//"type": "comment"
+protocol StringEnumerable {
+    init(string: String) throws
+}
 
-enum HackernewsModelType: String {
+protocol JSONInitializable {
+    init(json: [String: AnyObject]) throws
+}
+
+enum SerializationError: Error {
+    case UnknownEnum
+}
+
+enum HackernewsModelType: String, StringEnumerable {
     case Comment = "comment"
     case Story   = "story"
     case User    = "user"
+    
+    init(string: String) throws {
+        switch (string) {
+            case "comment": self = .Comment
+            case "story": self = .Story
+            case "user": self = .User
+            default:
+                throw SerializationError.UnknownEnum
+        }
+    }
 }
 
-class HackernewsModel: NSObject {
-    var by: String = ""
-    var id: String = ""
-    var time: Date = Date()
-    var type: HackernewsModelType = .Story
+class HackernewsModel: Object, JSONInitializable {
+    dynamic var by: String = ""
+    dynamic var id: String = ""
+    dynamic var time: Date = Date(timeIntervalSince1970: 0)
+    dynamic var type: HackernewsModelType.RawValue = HackernewsModelType.Comment.rawValue
+    var enumType: HackernewsModelType {
+        get {
+            return HackernewsModelType(rawValue: type)!
+        }
+        set {
+            type = newValue.rawValue
+        }
+    }
+    
+    required init(json: [String: AnyObject]) throws {
+        super.init()
+        self.by = try json.string(key: "by")
+        self.id = try json.string(key: "id")
+        self.time = Date(timeIntervalSince1970: TimeInterval(try json.int(key: "time")))
+        self.type = try json.string(key: "type")
+    }
+    
+    required init() {
+        super.init()
+    }
+    
+    required init(realm: RLMRealm, schema: RLMObjectSchema) {
+        super.init(realm: realm, schema: schema)
+    }
+    
+    required init(value: Any, schema: RLMSchema) {
+        super.init(value: value, schema: schema)
+    }
 }
