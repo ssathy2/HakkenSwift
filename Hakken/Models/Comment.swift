@@ -10,27 +10,23 @@ import UIKit
 import Realm
 import RealmSwift
 
-class Comment: HackernewsModel {
+class Comment: Object, HackernewsModelable {
+    dynamic var base: HackernewsNewsModel? = nil
     var kids: List<Comment> = List<Comment>()
     dynamic var parent: Int = 0
     dynamic var text: String = ""
     
-    required init(json: [String: AnyObject]) throws {
-        try super.init(json: json)
-        self.kids = try json.list(key: "kids")
+    required convenience init(json: [String: AnyObject]) throws {
+        self.init()
+        self.base = try HackernewsNewsModel(json: json)
+        let valArray: [[String: AnyObject]] = try json.serialize(key: "kids")
+        let list = List<Comment>()
+        for dict in valArray {
+            let obj = try Comment(json: dict)
+            list.append(obj)
+        }
+        self.kids = list
         self.parent = try json.int(key: "id")
         self.text = try json.string(key: "text")
-    }
-    
-    required init() {
-        fatalError("init() has not been implemented")
-    }
-    
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        fatalError("init(realm:schema:) has not been implemented")
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        fatalError("init(value:schema:) has not been implemented")
     }
 }

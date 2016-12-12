@@ -60,15 +60,6 @@ extension Dictionary where Key: ExpressibleByStringLiteral, Value: AnyObject {
         })
     }
     
-    func list<T: JSONInitializable>(key: String) throws -> List<T> {
-        let valArray: [[String: AnyObject]] = try serialize(key: key)
-        let list = List<T>()
-        for dict in valArray {
-            list.append(T(json: dict))
-        }
-        return list
-    }
-    
     func enumValue<T: StringEnumerable>(key: String) throws -> T {
         return try T(string: try serialize(key: key))
     }

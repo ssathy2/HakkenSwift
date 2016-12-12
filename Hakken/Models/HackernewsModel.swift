@@ -38,9 +38,13 @@ enum HackernewsModelType: String, StringEnumerable {
     }
 }
 
-class HackernewsModel: Object, JSONInitializable {
+protocol HackernewsModelable: JSONInitializable {
+    var base: HackernewsNewsModel? { get set }
+}
+
+class HackernewsNewsModel: Object, JSONInitializable {
     dynamic var by: String = ""
-    dynamic var id: String = ""
+    dynamic var id: Int = 0
     dynamic var time: Date = Date(timeIntervalSince1970: 0)
     dynamic var type: HackernewsModelType.RawValue = HackernewsModelType.Comment.rawValue
     var enumType: HackernewsModelType {
@@ -52,23 +56,11 @@ class HackernewsModel: Object, JSONInitializable {
         }
     }
     
-    required init(json: [String: AnyObject]) throws {
-        super.init()
+    required convenience init(json: [String: AnyObject]) throws {
+        self.init()
         self.by = try json.string(key: "by")
-        self.id = try json.string(key: "id")
+        self.id = try json.int(key: "id")
         self.time = Date(timeIntervalSince1970: TimeInterval(try json.int(key: "time")))
         self.type = try json.string(key: "type")
-    }
-    
-    required init() {
-        super.init()
-    }
-    
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
     }
 }

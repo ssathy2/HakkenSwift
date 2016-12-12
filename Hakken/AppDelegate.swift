@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+import Realm
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

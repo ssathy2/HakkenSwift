@@ -7,6 +7,7 @@ target 'Hakken' do
     pod 'RealmSwift'
     pod 'Alamofire', '~> 4.0'
     pod 'RxSwift', '3.0.0-beta.2'
+    pod 'RxCocoa', 
 end
 
 post_install do |installer|
