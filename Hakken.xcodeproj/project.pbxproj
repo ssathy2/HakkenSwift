@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		281BA1301E0F309400BC50AB /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281BA12F1E0F309400BC50AB /* Services.swift */; };
+		281BA1321E0F36D200BC50AB /* LiveServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281BA1311E0F36D200BC50AB /* LiveServices.swift */; };
+		281BA1341E0F47E500BC50AB /* Array+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281BA1331E0F47E500BC50AB /* Array+Serialization.swift */; };
 		6EE7E5D992FFB92D2F2F263F /* Pods_Hakken.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF4B25274871FAE1CE17FC8 /* Pods_Hakken.framework */; };
 		DE5D39301DAD85450075E5BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE5D392F1DAD85450075E5BC /* LaunchScreen.storyboard */; };
 		DE5D39321DAD855B0075E5BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE5D39311DAD855B0075E5BC /* Main.storyboard */; };
@@ -21,6 +24,9 @@
 
 /* Begin PBXFileReference section */
 		11E18790DCE2EC878E7EFD99 /* Pods-Hakken.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hakken.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hakken/Pods-Hakken.debug.xcconfig"; sourceTree = "<group>"; };
+		281BA12F1E0F309400BC50AB /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		281BA1311E0F36D200BC50AB /* LiveServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveServices.swift; sourceTree = "<group>"; };
+		281BA1331E0F47E500BC50AB /* Array+Serialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Serialization.swift"; sourceTree = "<group>"; };
 		51DCDC49875939F2FBFE1935 /* Pods-Hakken.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hakken.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hakken/Pods-Hakken.release.xcconfig"; sourceTree = "<group>"; };
 		5EF4B25274871FAE1CE17FC8 /* Pods_Hakken.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hakken.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE5D392F1DAD85450075E5BC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -73,6 +79,8 @@
 		DE5D392C1DAD84F20075E5BC /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				281BA12F1E0F309400BC50AB /* Services.swift */,
+				281BA1311E0F36D200BC50AB /* LiveServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -96,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				DE620D331DF47678005781B0 /* Dictionary+Serialization.swift */,
+				281BA1331E0F47E500BC50AB /* Array+Serialization.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -296,8 +305,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE64E3E41DAD8838001987E5 /* HackernewsModel.swift in Sources */,
+				281BA1321E0F36D200BC50AB /* LiveServices.swift in Sources */,
 				DE620D341DF47678005781B0 /* Dictionary+Serialization.swift in Sources */,
 				DE991DC21BB0CCB5007C489E /* AppDelegate.swift in Sources */,
+				281BA1301E0F309400BC50AB /* Services.swift in Sources */,
+				281BA1341E0F47E500BC50AB /* Array+Serialization.swift in Sources */,
 				DE64E3E61DAD8845001987E5 /* Story.swift in Sources */,
 				DE620D381DF47B57005781B0 /* DateFormatterManager.swift in Sources */,
 				DE64E3E81DAD884E001987E5 /* Comment.swift in Sources */,
@@ -399,7 +411,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 11E18790DCE2EC878E7EFD99 /* Pods-Hakken.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Hakken/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -412,7 +423,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51DCDC49875939F2FBFE1935 /* Pods-Hakken.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Hakken/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

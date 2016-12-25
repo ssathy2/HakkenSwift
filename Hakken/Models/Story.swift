@@ -10,13 +10,27 @@ import UIKit
 import Realm
 import RealmSwift
 
-class Story: Object, HackernewsModelable {
-    dynamic var base: HackernewsNewsModel? = nil
+class Story: Object, JSONInitializable {
+    dynamic var by: String = ""
+    dynamic var id: Int = 0
+    dynamic var time: Date = Date(timeIntervalSince1970: 0)
+    dynamic var type: HackernewsModelType.RawValue = HackernewsModelType.Comment.rawValue
+    var enumType: HackernewsModelType {
+        get {
+            return HackernewsModelType(rawValue: type)!
+        }
+        set {
+            type = newValue.rawValue
+        }
+    }
     dynamic var score: Int = 0
     dynamic var title: String = ""
-    dynamic var urlString: String = ""
+    dynamic var urlString: String? = nil
     var url: URL? {
         get {
+            guard let urlString = urlString else {
+                return nil
+            }
             return URL(string: urlString)
         }
         set {
@@ -26,12 +40,19 @@ class Story: Object, HackernewsModelable {
         }
     }
     
-    required convenience init(json: [String: AnyObject]) throws {
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    convenience required init(json: [String: AnyObject]) throws {
         self.init()
-        self.base = try HackernewsNewsModel(json: json)
+        self.by = try json.string(key: "by")
+        self.id = try json.int(key: "id")
+        self.time = Date(timeIntervalSince1970: TimeInterval(try json.int(key: "time")))
+        self.type = try json.string(key: "type")
         self.score = try json.int(key: "score")
         self.title = try json.string(key: "title")
-        self.urlString = try json.string(key: "url")
+        self.urlString = json["url"] as? String
     }
     
     override static func ignoredProperties() -> [String] {

@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.0.1)
+  - Alamofire (4.2.0)
   - CocoaLumberjack/Core (3.0.0)
   - CocoaLumberjack/Default (3.0.0):
     - CocoaLumberjack/Core
@@ -7,26 +7,45 @@ PODS:
     - CocoaLumberjack/Default
   - CocoaLumberjack/Swift (3.0.0):
     - CocoaLumberjack/Extensions
-  - Realm (2.0.2):
-    - Realm/Headers (= 2.0.2)
-  - Realm/Headers (2.0.2)
-  - RealmSwift (2.0.2):
-    - Realm (= 2.0.2)
+  - Realm (1.1.0):
+    - Realm/Headers (= 1.1.0)
+  - Realm/Headers (1.1.0)
+  - RealmSwift (1.1.0):
+    - Realm (= 1.1.0)
+  - RxCocoa (1.9):
+    - RxSwift
+  - RxRealm (0.1.7):
+    - RealmSwift (~> 1.0)
+    - RxSwift
   - RxSwift (3.0.0-beta.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
   - CocoaLumberjack/Swift
-  - RealmSwift
+  - RealmSwift (~> 1.0)
+  - RxCocoa
+  - RxRealm (from `https://github.com/RxSwiftCommunity/RxRealm.git`, branch `swift3`)
   - RxSwift (= 3.0.0-beta.2)
 
+EXTERNAL SOURCES:
+  RxRealm:
+    :branch: swift3
+    :git: https://github.com/RxSwiftCommunity/RxRealm.git
+
+CHECKOUT OPTIONS:
+  RxRealm:
+    :commit: 40ff66e23d9ab9e6bff4256b020cbf5cbad619b1
+    :git: https://github.com/RxSwiftCommunity/RxRealm.git
+
 SPEC CHECKSUMS:
-  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   CocoaLumberjack: c823149bccc5519a9447aeb433be7b1212a7d6a5
-  Realm: 0f5a194af0b7e6158b83db41b4ee1a00be7ddf1a
-  RealmSwift: 0eb5070d851cba7c66e841ca756d83609dc78bc8
+  Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
+  RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
+  RxCocoa: 6ef9cc14418d5bbda067550e46f5949a3eeca37d
+  RxRealm: 417fe938e693a032e114d5f7a8eacb27cb6721cd
   RxSwift: 0ea939d7d97cb70657190ffde8dc2a9b455778fc
 
-PODFILE CHECKSUM: b2957888bc14f3c92a0b7cf7788ec30abd3f4ff5
+PODFILE CHECKSUM: 21fa3420673dfcd5254913f930bf12d1aa649d65
 
 COCOAPODS: 1.1.1

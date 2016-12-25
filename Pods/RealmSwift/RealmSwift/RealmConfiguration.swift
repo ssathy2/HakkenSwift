@@ -57,20 +57,16 @@ extension Realm {
 
          - parameter fileURL:            The local URL to the Realm file.
          - parameter inMemoryIdentifier: A string used to identify a particular in-memory Realm.
-         - parameter syncConfiguration:  A `SyncUser` and URL that, together, identify a remote Realm. Note that the
-                                         URL must be absolute (e.g. `realm://example.com/~/foo`), and cannot end with
-                                         `.realm`, `.realm.lock` or `.realm.management`.
          - parameter encryptionKey:      An optional 64-byte key to use to encrypt the data.
          - parameter readOnly:           Whether the Realm is read-only (must be true for read-only files).
          - parameter schemaVersion:      The current schema version.
          - parameter migrationBlock:     The block which migrates the Realm to the current version.
          - parameter deleteRealmIfMigrationNeeded: If `true`, recreate the Realm file with the provided
-                                                   schema if a migration is required.
+         schema if a migration is required.
          - parameter objectTypes:        The subset of `Object` subclasses persisted in the Realm.
         */
         public init(fileURL: URL? = URL(fileURLWithPath: RLMRealmPathForFile("default.realm"), isDirectory: false),
             inMemoryIdentifier: String? = nil,
-            syncConfiguration: (user: SyncUser, realmURL: URL)? = nil,
             encryptionKey: Data? = nil,
             readOnly: Bool = false,
             schemaVersion: UInt64 = 0,
@@ -78,11 +74,8 @@ extension Realm {
             deleteRealmIfMigrationNeeded: Bool = false,
             objectTypes: [Object.Type]? = nil) {
                 self.fileURL = fileURL
-                if let inMemoryIdentifier = inMemoryIdentifier {
+                if inMemoryIdentifier != nil {
                     self.inMemoryIdentifier = inMemoryIdentifier
-                }
-                if let syncConfiguration = syncConfiguration {
-                    self.syncConfiguration = syncConfiguration
                 }
                 self.encryptionKey = encryptionKey
                 self.readOnly = readOnly
@@ -94,30 +87,10 @@ extension Realm {
 
         // MARK: Configuration Properties
 
-        /**
-         A tuple used to configure a Realm for synchronization with the Realm Object Server. Mutually exclusive with
-         `inMemoryIdentifier` and `fileURL`.
-         
-         - warning: The URL cannot end with `.realm`, `.realm.lock` or `.realm.management`.
-         */
-        public var syncConfiguration: (user: SyncUser, realmURL: URL)? {
-            set {
-                _path = nil
-                _inMemoryIdentifier = nil
-                _syncConfiguration = newValue
-            }
-            get {
-                return _syncConfiguration
-            }
-        }
-
-        private var _syncConfiguration: (user: SyncUser, realmURL: URL)?
-
-        /// The local URL of the Realm file. Mutually exclusive with `inMemoryIdentifier` and `syncConfiguration`.
+        /// The local URL of the Realm file. Mutually exclusive with `inMemoryIdentifier`.
         public var fileURL: URL? {
             set {
                 _inMemoryIdentifier = nil
-                _syncConfiguration = nil
                 _path = newValue?.path
             }
             get {
@@ -127,12 +100,10 @@ extension Realm {
 
         private var _path: String?
 
-        /// A string used to identify a particular in-memory Realm. Mutually exclusive with `fileURL` and
-        /// `syncConfiguration`.
+        /// A string used to identify a particular in-memory Realm. Mutually exclusive with `fileURL`.
         public var inMemoryIdentifier: String? {
             set {
                 _path = nil
-                _syncConfiguration = nil
                 _inMemoryIdentifier = newValue
             }
             get {
@@ -196,9 +167,6 @@ extension Realm {
                 configuration.fileURL = fileURL
             } else if let inMemoryIdentifier = inMemoryIdentifier {
                 configuration.inMemoryIdentifier = inMemoryIdentifier
-            } else if let syncConfiguration = syncConfiguration {
-                configuration.syncConfiguration = RLMSyncConfiguration(user: syncConfiguration.0,
-                                                                       realmURL: syncConfiguration.1)
             } else {
                 fatalError("A Realm Configuration must specify a path or an in-memory identifier.")
             }
@@ -216,11 +184,6 @@ extension Realm {
             var configuration = Configuration()
             configuration._path = rlmConfiguration.fileURL?.path
             configuration._inMemoryIdentifier = rlmConfiguration.inMemoryIdentifier
-            if let objcSyncConfig = rlmConfiguration.syncConfiguration {
-                configuration._syncConfiguration = (objcSyncConfig.user, objcSyncConfig.realmURL)
-            } else {
-                configuration._syncConfiguration = nil
-            }
             configuration.encryptionKey = rlmConfiguration.encryptionKey
             configuration.readOnly = rlmConfiguration.readOnly
             configuration.schemaVersion = rlmConfiguration.schemaVersion
@@ -286,20 +249,16 @@ extension Realm {
 
          - parameter fileURL:            The local URL to the Realm file.
          - parameter inMemoryIdentifier: A string used to identify a particular in-memory Realm.
-         - parameter syncConfiguration:  A `SyncUser` and URL that, together, identify a remote Realm. Note that the
-                                         URL must be absolute (e.g. `realm://example.com/~/foo`), and cannot end with
-                                         `.realm`, `.realm.lock` or `.realm.management`.
          - parameter encryptionKey:      An optional 64-byte key to use to encrypt the data.
          - parameter readOnly:           Whether the Realm is read-only (must be true for read-only files).
          - parameter schemaVersion:      The current schema version.
          - parameter migrationBlock:     The block which migrates the Realm to the current version.
          - parameter deleteRealmIfMigrationNeeded: If `true`, recreate the Realm file with the provided
-                                                   schema if a migration is required.
+         schema if a migration is required.
          - parameter objectTypes:        The subset of `Object` subclasses managed by the Realm.
          */
         public init(fileURL: NSURL? = NSURL(fileURLWithPath: RLMRealmPathForFile("default.realm"), isDirectory: false),
             inMemoryIdentifier: String? = nil,
-            syncConfiguration: (user: SyncUser, realmURL: NSURL)? = nil,
             encryptionKey: NSData? = nil,
             readOnly: Bool = false,
             schemaVersion: UInt64 = 0,
@@ -307,11 +266,8 @@ extension Realm {
             deleteRealmIfMigrationNeeded: Bool = false,
             objectTypes: [Object.Type]? = nil) {
                 self.fileURL = fileURL
-                if let inMemoryIdentifier = inMemoryIdentifier {
+                if inMemoryIdentifier != nil {
                     self.inMemoryIdentifier = inMemoryIdentifier
-                }
-                if let syncConfiguration = syncConfiguration {
-                    self.syncConfiguration = syncConfiguration
                 }
                 self.encryptionKey = encryptionKey
                 self.readOnly = readOnly
@@ -323,30 +279,10 @@ extension Realm {
 
         // MARK: Configuration Properties
 
-        /**
-         A tuple used to configure a Realm for synchronization with the Realm Object Server. Mutually exclusive with
-         `inMemoryIdentifier` and `fileURL`.
-
-         - warning: The URL cannot end with `.realm`, `.realm.lock` or `.realm.management`.
-         */
-        public var syncConfiguration: (user: SyncUser, realmURL: NSURL)? {
-            set {
-                _path = nil
-                _inMemoryIdentifier = nil
-                _syncConfiguration = newValue
-            }
-            get {
-                return _syncConfiguration
-            }
-        }
-
-        private var _syncConfiguration: (user: SyncUser, realmURL: NSURL)?
-
-        /// The local URL of the Realm file. Mutually exclusive with `inMemoryIdentifier` and `syncConfiguration`.
+        /// The local URL of the Realm file. Mutually exclusive with `inMemoryIdentifier`.
         public var fileURL: NSURL? {
             set {
                 _inMemoryIdentifier = nil
-                _syncConfiguration = nil
                 _path = newValue?.path
             }
             get {
@@ -356,12 +292,10 @@ extension Realm {
 
         private var _path: String?
 
-        /// A string used to identify a particular in-memory Realm. Mutually exclusive with `fileURL` and
-        /// `syncConfiguration`.
+        /// A string used to identify a particular in-memory Realm. Mutually exclusive with `fileURL`.
         public var inMemoryIdentifier: String? {
             set {
                 _path = nil
-                _syncConfiguration = nil
                 _inMemoryIdentifier = newValue
             }
             get {
@@ -426,9 +360,6 @@ extension Realm {
                 configuration.fileURL = self.fileURL
             } else if inMemoryIdentifier != nil {
                 configuration.inMemoryIdentifier = self.inMemoryIdentifier
-            } else if let syncConfiguration = syncConfiguration {
-                configuration.syncConfiguration = RLMSyncConfiguration(user: syncConfiguration.0,
-                                                                       realmURL: syncConfiguration.1)
             } else {
                 fatalError("A Realm Configuration must specify a path or an in-memory identifier.")
             }
@@ -446,11 +377,6 @@ extension Realm {
             var configuration = Configuration()
             configuration._path = rlmConfiguration.fileURL?.path
             configuration._inMemoryIdentifier = rlmConfiguration.inMemoryIdentifier
-            if let objcSyncConfig = rlmConfiguration.syncConfiguration {
-                configuration._syncConfiguration = (objcSyncConfig.user, objcSyncConfig.realmURL)
-            } else {
-                configuration._syncConfiguration = nil
-            }
             configuration.encryptionKey = rlmConfiguration.encryptionKey
             configuration.readOnly = rlmConfiguration.readOnly
             configuration.schemaVersion = rlmConfiguration.schemaVersion
