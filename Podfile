@@ -4,11 +4,10 @@ use_frameworks!
 
 target 'Hakken' do
     pod 'CocoaLumberjack/Swift'
-    pod 'RealmSwift', '~> 1.0'
+    pod 'RxSwift', '~> 3.0'
+    pod 'RealmSwift'
+    pod 'RxCocoa', '~> 3.0'
     pod 'Alamofire', '~> 4.0'
-    pod 'RxSwift', '3.0.0-beta.2'
-    pod 'RxCocoa'
-    pod 'RxRealm', :git => 'https://github.com/RxSwiftCommunity/RxRealm.git', :branch => 'swift3'
 end
 
 post_install do |installer|

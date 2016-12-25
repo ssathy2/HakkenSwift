@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class Comment: Object, JSONInitializable {
+class Comment: Object, JSONInitializable, TrackableItem {
     var kids: List<Comment> = List<Comment>()
     dynamic var parent: Int = 0
     dynamic var text: String = ""

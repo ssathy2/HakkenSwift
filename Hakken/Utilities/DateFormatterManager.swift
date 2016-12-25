@@ -2,15 +2,11 @@
 //  DateFormatterManager.swift
 //  Hakken
 //
-//  Created by Siddharth Sathyam on 12/4/16.
+//  Created by Siddharth Sathyam on 12/24/16.
 //  Copyright © 2016 dotdotdot. All rights reserved.
 //
 
 import UIKit
-
-enum DateFormatterError: Error {
-    case DateStringDateFormatMismatch
-}
 
 class DateFormatterManager {
     static let sharedInstance = DateFormatterManager()
@@ -18,7 +14,7 @@ class DateFormatterManager {
     
     private func date(dateFormatter: DateFormatter, dateString: String) throws -> Date {
         guard let date = dateFormatter.date(from: dateString) else {
-            throw DateFormatterError.DateStringDateFormatMismatch
+            throw DateFormatterError.DateFormatMismatch("Mismatch in date formatter date")
         }
         return date
     }

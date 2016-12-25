@@ -11,13 +11,56 @@ import RxSwift
 import Alamofire
 import RealmSwift
 
-class LiveServices: Services {
+class TopStories: StoriesService {
+    func stories(from: Int, to: Int) -> Observable<[Story]> {
+        let requestURL = URL(string: "top?from=\(from)&to=\(to)", relativeTo: LiveServices.shared.baseURL)
+        return LiveServices.shared.fetch(url: requestURL!)
+    }
+}
+
+class ShowHNStories: StoriesService {
+    func stories(from: Int, to: Int) -> Observable<[Story]> {
+        let requestURL = URL(string: "showhn?from=\(from)&to=\(to)", relativeTo: LiveServices.shared.baseURL)
+        return LiveServices.shared.fetch(url: requestURL!)
+    }
+}
+
+class AskHNStories: StoriesService {
+    func stories(from: Int, to: Int) -> Observable<[Story]> {
+        let requestURL = URL(string: "askhn?from=\(from)&to=\(to)", relativeTo: LiveServices.shared.baseURL)
+        return LiveServices.shared.fetch(url: requestURL!)
+    }
+}
+
+class JobHNStories: StoriesService {
+    func stories(from: Int, to: Int) -> Observable<[Story]> {
+        let requestURL = URL(string: "jobhn?from=\(from)&to=\(to)", relativeTo: LiveServices.shared.baseURL)
+        return LiveServices.shared.fetch(url: requestURL!)
+    }
+
+}
+
+class NewHNStories: StoriesService {
+    func stories(from: Int, to: Int) -> Observable<[Story]> {
+        let requestURL = URL(string: "new?from=\(from)&to=\(to)", relativeTo: LiveServices.shared.baseURL)
+        return LiveServices.shared.fetch(url: requestURL!)
+    }
+}
+
+class Comments: CommentsService {
+    func comments(storyId: Int) -> Observable<[Comment]> {
+        let requestURL = URL(string: "comments/\(storyId)", relativeTo: LiveServices.shared.baseURL)
+        return LiveServices.shared.fetch(url: requestURL!)
+    }
+}
+
+class LiveServices {
     static var shared = LiveServices()
-    private var baseURL: URL {
+    var baseURL: URL {
         return URL(string: "http://hackernews-api-newyork1.siddsathyam.com/v2/")!
     }
     
-    private func fetch<T: JSONInitializable>(url: URL) -> Observable<[T]> {
+    func fetch<T: JSONInitializable>(url: URL) -> Observable<[T]> {
         return Observable.create { (observer) in
             let r = request(url).responseJSON { (response) in
                 switch response.result {
@@ -49,35 +92,5 @@ class LiveServices: Services {
             realm.add(element as! Object, update: true)
         }
         try realm.commitWrite()
-    }
-    
-    func topstories(from: Int, to: Int) -> Observable<[Story]> {
-        let requestURL = URL(string: "top?from=\(from)&to=\(to)", relativeTo: baseURL)
-        return fetch(url: requestURL!)
-    }
-    
-    func showhnstories(from: Int, to: Int) -> Observable<[Story]> {
-        let requestURL = URL(string: "showhn?from=\(from)&to=\(to)", relativeTo: baseURL)
-        return fetch(url: requestURL!)
-    }
-    
-    func askhnstories(from: Int, to: Int) -> Observable<[Story]> {
-        let requestURL = URL(string: "askhn?from=\(from)&to=\(to)", relativeTo: baseURL)
-        return fetch(url: requestURL!)
-    }
-    
-    func jobhnstories(from: Int, to: Int) -> Observable<[Story]> {
-        let requestURL = URL(string: "jobhn?from=\(from)&to=\(to)", relativeTo: baseURL)
-        return fetch(url: requestURL!)
-    }
-    
-    func newhnstories(from: Int, to: Int) -> Observable<[Story]> {
-        let requestURL = URL(string: "new?from=\(from)&to=\(to)", relativeTo: baseURL)
-        return fetch(url: requestURL!)
-    }
-    
-    func comments(storyId: Int) -> Observable<[Comment]> {
-        let requestURL = URL(string: "comments/\(storyId)", relativeTo: baseURL)
-        return fetch(url: requestURL!)
     }
 }

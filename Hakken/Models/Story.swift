@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class Story: Object, JSONInitializable {
+class Story: Object, JSONInitializable, TrackableItem {
     dynamic var by: String = ""
     dynamic var id: Int = 0
     dynamic var time: Date = Date(timeIntervalSince1970: 0)
