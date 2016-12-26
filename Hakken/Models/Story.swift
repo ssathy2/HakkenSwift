@@ -13,6 +13,7 @@ import RealmSwift
 class Story: Object, JSONInitializable, TrackableItem {
     dynamic var by: String = ""
     dynamic var id: Int = 0
+    let descendants = RealmOptional<Int>()
     dynamic var time: Date = Date(timeIntervalSince1970: 0)
     dynamic var type: HackernewsModelType.RawValue = HackernewsModelType.Comment.rawValue
     var enumType: HackernewsModelType {
@@ -48,6 +49,9 @@ class Story: Object, JSONInitializable, TrackableItem {
         self.init()
         self.by = try json.string(key: "by")
         self.id = try json.int(key: "id")
+        if let descendants = json["descendants"] as? Int {
+            self.descendants.value = descendants
+        }
         self.time = Date(timeIntervalSince1970: TimeInterval(try json.int(key: "time")))
         self.type = try json.string(key: "type")
         self.score = try json.int(key: "score")
@@ -57,5 +61,9 @@ class Story: Object, JSONInitializable, TrackableItem {
     
     override static func ignoredProperties() -> [String] {
         return ["url"]
+    }
+    
+    func isUserGenerated() -> Bool {
+        return urlString?.characters.count == 0
     }
 }

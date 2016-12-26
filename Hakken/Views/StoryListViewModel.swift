@@ -33,20 +33,42 @@ class StoryListViewModel: ViewModel {
         self.init(storiesService: TopStories())
     }
     
+    func canFetchMoreStories() -> Bool {
+        return storyTo < StoryListViewModel.StoriesMaxTopStoriesCount
+    }
+    
+    func fetchNextStories() {
+        fetch(from: storyTo+1, to: storyTo+1+StoryListViewModel.StoriesRefreshFetchCount)
+    }
+    
+    private func fetch(from: Int, to: Int) {
+        if !canFetchMoreStories() || isFetchingStories {
+            return
+        }
+        
+        storyFrom = from
+        storyTo   = to
+        isFetchingStories = true
+        
+        let _ = storiesService
+            .stories(from: from, to: to)
+            .flatMap {
+                self.currentArrayInsertionDeletion.add(items: $0)
+            }
+            .subscribe(onNext: { (latestArrayInsertionDeletion) in
+                self.list.onNext(latestArrayInsertionDeletion)
+                self.isFetchingStories = false
+                }, onError: { (error) in
+                    self.list.onError(error)
+                    self.isFetchingStories = false
+                }, onCompleted: {
+                    self.list.onCompleted()
+                    self.isFetchingStories = false
+                }, onDisposed: nil)
+    }
+    
     override func viewModelDidLoad() {
         super.viewModelDidLoad()
-        let _ = storiesService
-                .stories(from: storyFrom, to: storyTo)
-                .flatMap {
-                    self.currentArrayInsertionDeletion.add(items: $0)
-                }
-                .subscribe(onNext: { (latestArrayInsertionDeletion) in
-                    self.list.onNext(latestArrayInsertionDeletion)
-                    }, onError: { (error) in
-                        self.list.onError(error)
-                    }, onCompleted: {
-                        self.list.onCompleted()
-                    }, onDisposed: nil)
-        
+        fetch(from: 0, to: StoryListViewModel.StoriesRefreshFetchCount-1)
     }
 }

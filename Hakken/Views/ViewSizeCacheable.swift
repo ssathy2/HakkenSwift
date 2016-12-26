@@ -10,7 +10,7 @@ import UIKit
 
 protocol NibViewInstantiable: class {
     static var view: UIView { get set }
-    static var nibName: String { get }
+    static func nibName() -> String
 }
 
 public protocol ViewSizeCacheable: class {
@@ -24,7 +24,6 @@ public protocol CellModelBindable: class {
     func update(model: AnyObject)
 }
 
-private var viewKey: UInt8 = 0
 private var modelKeyToSizingInformationKey: UInt8 = 0
 
 extension ViewSizeCacheable {
@@ -51,24 +50,5 @@ extension ViewSizeCacheable {
     public static func size(model: AnyObject, modelKey: String, useCached: Bool, fittingSize: CGSize) -> CGSize {
         // TODO: Add logging
         return CGSize.zero
-    }
-}
-
-extension UIView: NibViewInstantiable {
-    public static var view: UIView {
-        get {
-            return associatedObjectInitializeIfNil(object: self, key: &viewKey, policy: .OBJC_ASSOCIATION_RETAIN, initializer: {
-                return UINib(nibName: nibName, bundle: nil)
-                        .instantiate(withOwner: nil, options: nil)
-                        .first as! UIView
-            })
-        }
-        set {
-            associateObject(object: self, key: &viewKey, value: newValue, policy: .OBJC_ASSOCIATION_RETAIN)
-        }
-    }
-    
-    public static var nibName: String {
-        return ""
     }
 }

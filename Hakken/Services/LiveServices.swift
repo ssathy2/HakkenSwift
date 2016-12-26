@@ -57,7 +57,7 @@ class Comments: CommentsService {
 class LiveServices {
     static var shared = LiveServices()
     var baseURL: URL {
-        return URL(string: "http://hackernews-api-newyork1.siddsathyam.com/v2/")!
+        return URL(string: "http://localhost:5000/v2/")!
     }
     
     func fetch<T: JSONInitializable>(url: URL) -> Observable<[T]> {

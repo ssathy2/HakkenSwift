@@ -27,6 +27,9 @@
 		28E1AF6F1E10694400CD6830 /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E1AF6E1E10694400CD6830 /* Array+Helpers.swift */; };
 		28E1AF721E10937600CD6830 /* StoryListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E1AF701E10937600CD6830 /* StoryListCollectionViewCell.swift */; };
 		28E1AF731E10937600CD6830 /* StoryListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E1AF711E10937600CD6830 /* StoryListCollectionViewCell.xib */; };
+		28E1AF751E10C65900CD6830 /* IndexSet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E1AF741E10C65900CD6830 /* IndexSet+Extensions.swift */; };
+		28E1AF781E117BF600CD6830 /* StoryListFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E1AF761E117BF600CD6830 /* StoryListFooterView.swift */; };
+		28E1AF791E117BF600CD6830 /* StoryListFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E1AF771E117BF600CD6830 /* StoryListFooterView.xib */; };
 		6EE7E5D992FFB92D2F2F263F /* Pods_Hakken.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF4B25274871FAE1CE17FC8 /* Pods_Hakken.framework */; };
 		DE5D39301DAD85450075E5BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE5D392F1DAD85450075E5BC /* LaunchScreen.storyboard */; };
 		DE5D39321DAD855B0075E5BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE5D39311DAD855B0075E5BC /* Main.storyboard */; };
@@ -61,6 +64,9 @@
 		28E1AF6E1E10694400CD6830 /* Array+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Helpers.swift"; sourceTree = "<group>"; };
 		28E1AF701E10937600CD6830 /* StoryListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryListCollectionViewCell.swift; sourceTree = "<group>"; };
 		28E1AF711E10937600CD6830 /* StoryListCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoryListCollectionViewCell.xib; sourceTree = "<group>"; };
+		28E1AF741E10C65900CD6830 /* IndexSet+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexSet+Extensions.swift"; sourceTree = "<group>"; };
+		28E1AF761E117BF600CD6830 /* StoryListFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryListFooterView.swift; sourceTree = "<group>"; };
+		28E1AF771E117BF600CD6830 /* StoryListFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoryListFooterView.xib; sourceTree = "<group>"; };
 		51DCDC49875939F2FBFE1935 /* Pods-Hakken.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hakken.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hakken/Pods-Hakken.release.xcconfig"; sourceTree = "<group>"; };
 		5EF4B25274871FAE1CE17FC8 /* Pods_Hakken.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hakken.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE5D392F1DAD85450075E5BC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -108,6 +114,8 @@
 				28E1AF6A1E1060AB00CD6830 /* StoryList.storyboard */,
 				28E1AF701E10937600CD6830 /* StoryListCollectionViewCell.swift */,
 				28E1AF711E10937600CD6830 /* StoryListCollectionViewCell.xib */,
+				28E1AF761E117BF600CD6830 /* StoryListFooterView.swift */,
+				28E1AF771E117BF600CD6830 /* StoryListFooterView.xib */,
 			);
 			name = "Story List";
 			sourceTree = "<group>";
@@ -174,6 +182,7 @@
 				DE620D331DF47678005781B0 /* Dictionary+Serialization.swift */,
 				281BA1331E0F47E500BC50AB /* Array+Serialization.swift */,
 				28E1AF6E1E10694400CD6830 /* Array+Helpers.swift */,
+				28E1AF741E10C65900CD6830 /* IndexSet+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -319,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE5D39321DAD855B0075E5BC /* Main.storyboard in Resources */,
+				28E1AF791E117BF600CD6830 /* StoryListFooterView.xib in Resources */,
 				28E1AF6B1E1060AB00CD6830 /* StoryList.storyboard in Resources */,
 				DE991DC91BB0CCB5007C489E /* Assets.xcassets in Resources */,
 				28E1AF731E10937600CD6830 /* StoryListCollectionViewCell.xib in Resources */,
@@ -382,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				281BA1361E0F6E8A00BC50AB /* ViewController.swift in Sources */,
+				28E1AF781E117BF600CD6830 /* StoryListFooterView.swift in Sources */,
 				281BA1441E0F741400BC50AB /* DateFormatter+Convienience.swift in Sources */,
 				DE64E3E41DAD8838001987E5 /* HackernewsModel.swift in Sources */,
 				281BA1461E0F741400BC50AB /* String+Date.swift in Sources */,
@@ -392,6 +403,7 @@
 				28E1AF721E10937600CD6830 /* StoryListCollectionViewCell.swift in Sources */,
 				DE620D341DF47678005781B0 /* Dictionary+Serialization.swift in Sources */,
 				DE991DC21BB0CCB5007C489E /* AppDelegate.swift in Sources */,
+				28E1AF751E10C65900CD6830 /* IndexSet+Extensions.swift in Sources */,
 				28E1AF671E10497A00CD6830 /* Router.swift in Sources */,
 				281BA1301E0F309400BC50AB /* Services.swift in Sources */,
 				281BA14A1E0F84C400BC50AB /* StoryListViewController.swift in Sources */,
@@ -506,6 +518,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Hakken/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotdotdot.Hakken;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

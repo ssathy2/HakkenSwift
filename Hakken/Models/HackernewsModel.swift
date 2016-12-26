@@ -25,12 +25,18 @@ enum HackernewsModelType: String, StringEnumerable {
     case Comment = "comment"
     case Story   = "story"
     case User    = "user"
+    case Poll    = "poll"
+    case PollOpt = "pollopt"
+    case Job     = "job"
     
     init(string: String) throws {
         switch (string) {
             case "comment": self = .Comment
             case "story": self = .Story
             case "user": self = .User
+            case "poll": self = .Poll
+            case "pollopt": self = .PollOpt
+            case "job": self = .Job
             default:
                 throw SerializationError.UnknownEnum
         }

@@ -40,7 +40,6 @@ class ArrayInsertionDeletion<T: TrackableItem> {
             self.indexesDeleted = indexesRemoved
             
             observer.onNext(self)
-            observer.onCompleted()
             return Disposables.create()
         })
     }
@@ -52,7 +51,6 @@ class ArrayInsertionDeletion<T: TrackableItem> {
             self.indexesDeleted = indexes
             
             observer.onNext(self)
-            observer.onCompleted()
             return Disposables.create()
         })
     }
@@ -66,8 +64,6 @@ class ArrayInsertionDeletion<T: TrackableItem> {
                 return Disposables.create()
             }
             self.indexesDeleted = indexesRemoved
-            observer.onNext(self)
-            observer.onCompleted()
             return Disposables.create()
         })
     }
@@ -82,7 +78,6 @@ class ArrayInsertionDeletion<T: TrackableItem> {
             }
             self.indexesDeleted = indexesRemoved
             observer.onNext(self)
-            observer.onCompleted()
             return Disposables.create()
         })
     }
@@ -97,7 +92,6 @@ class ArrayInsertionDeletion<T: TrackableItem> {
             }
             self.indexesUpdated = indexesRemoved
             observer.onNext(self)
-            observer.onCompleted()
             return Disposables.create()
         })
     }
@@ -112,7 +106,6 @@ class ArrayInsertionDeletion<T: TrackableItem> {
             }
             self.indexesUpdated = indexesRemoved
             observer.onNext(self)
-            observer.onCompleted()
             return Disposables.create()
         })
     }
@@ -124,7 +117,6 @@ class ArrayInsertionDeletion<T: TrackableItem> {
             self.backingArray.append(item)
             self.indexesInserted = indexesAdded
             observer.onNext(self)
-            observer.onCompleted()
             return Disposables.create()
         })
     }
@@ -136,11 +128,10 @@ class ArrayInsertionDeletion<T: TrackableItem> {
             if self.backingArray.count > 0 {
                 start = self.backingArray.count - 1
             }
-            let indexesAdded   = IndexSet(integersIn: start...(self.backingArray.count-1)+(items.count-1))
+            let indexesAdded   = IndexSet(integersIn: start...start+items.count-1)
             self.backingArray.append(contentsOf: items)
             self.indexesInserted = indexesAdded
             observer.onNext(self)
-            observer.onCompleted()
             return Disposables.create()
         })
     }

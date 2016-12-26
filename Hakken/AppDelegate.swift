@@ -7,19 +7,43 @@
 //
 
 import UIKit
-import Alamofire
-import Realm
+import CocoaLumberjack
 import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    #if DEBUG
+    static let logLevel = DDLogLevel.verbose
+    #else
+    static let logLevel = DDLogLevel.error
+    #endif
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        configureLogging()
+        performMigrationIfNecessary()
+        DDLogDebug("Realm Database Location: \(try! Realm())")
         return true
+    }
+    
+    func configureLogging() {
+    #if DEBUG
+        DDLog.add(DDTTYLogger.sharedInstance())
+        DDLog.add(DDASLLogger.sharedInstance())
+        DDLog.add(DDFileLogger())
+        
+        DDTTYLogger.sharedInstance().colorsEnabled = true
+        DDTTYLogger.sharedInstance().setForegroundColor(UIColor.green, backgroundColor: UIColor.clear, for: DDLogFlag.info)
+        DDTTYLogger.sharedInstance().setForegroundColor(UIColor.red, backgroundColor: UIColor.clear, for: DDLogFlag.info)
+        DDTTYLogger.sharedInstance().setForegroundColor(UIColor.orange, backgroundColor: UIColor.clear, for: DDLogFlag.info)
+    #endif
+    }
+
+    private func performMigrationIfNecessary() {
+        //TODO: IMPLEMENT ME!
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
