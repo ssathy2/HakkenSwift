@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home Screen View Controller-->
+        <scene sceneID="F6l-nb-O5d">
+            <objects>
+                <viewController storyboardIdentifier="HomeScreenViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HcZ-Xc-jFh" customClass="HomeScreenViewController" customModule="Hakken" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="X2Q-MC-GD4"/>
+                        <viewControllerLayoutGuide type="bottom" id="8BV-u3-ZLq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bEO-rv-Kre">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vZ-EY-2hr">
+                                <connections>
+                                    <segue destination="Y7p-aT-rBV" kind="embed" identifier="EmbedPageViewController" id="QKn-ls-RG9"/>
+                                </connections>
+                            </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OmD-3q-TNh">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="bZ6-fh-hHJ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1vZ-EY-2hr" firstAttribute="leading" secondItem="bEO-rv-Kre" secondAttribute="leading" id="1bJ-IG-TqE"/>
+                            <constraint firstItem="OmD-3q-TNh" firstAttribute="leading" secondItem="bEO-rv-Kre" secondAttribute="leading" id="4K0-m9-jfg"/>
+                            <constraint firstItem="OmD-3q-TNh" firstAttribute="top" secondItem="X2Q-MC-GD4" secondAttribute="bottom" id="6BN-en-XE3"/>
+                            <constraint firstItem="1vZ-EY-2hr" firstAttribute="top" secondItem="OmD-3q-TNh" secondAttribute="bottom" id="DoG-i0-TlA"/>
+                            <constraint firstItem="8BV-u3-ZLq" firstAttribute="top" secondItem="1vZ-EY-2hr" secondAttribute="bottom" id="ZiV-e7-GeH"/>
+                            <constraint firstAttribute="trailing" secondItem="1vZ-EY-2hr" secondAttribute="trailing" id="ft8-vd-EaU"/>
+                            <constraint firstAttribute="trailing" secondItem="OmD-3q-TNh" secondAttribute="trailing" id="q5J-fm-3Lt"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="slidingTabContainerView" destination="OmD-3q-TNh" id="bDl-X8-oJY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TfP-hw-MSj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1250.4000000000001" y="58.920539730134934"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="pDF-Vv-Oc0">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Y7p-aT-rBV" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EhA-0L-iRS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-513" y="70"/>
+        </scene>
+    </scenes>
+</document>

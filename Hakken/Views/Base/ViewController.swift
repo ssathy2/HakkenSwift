@@ -37,16 +37,7 @@ class ViewController: UIViewController, DataUpdatable {
         return UIStoryboard(name: self.storyboardName(), bundle: nil).instantiateViewController(withIdentifier: self.identifier()) as! ViewController
     }
     
-    class func viewModelClass() -> ViewModel.Type {
-        return ViewModel.self
-    }
-    
-    func update(data: AnyObject?) {
-        if viewModel == nil {
-            viewModel = type(of: self).viewModelClass().init()
-        }
-        viewModel?.update(data: data)
-    }
+    func update(data: AnyObject?) { }
     
     func segueIdentifierToContainerViewControllerMapping() -> [String: String]? { return nil }
     

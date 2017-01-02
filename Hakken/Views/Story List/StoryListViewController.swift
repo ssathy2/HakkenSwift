@@ -7,16 +7,20 @@
 //
 
 import UIKit
+import RxCocoa
 import RxSwift
 
 class StoryListViewController: ViewController {
     @IBOutlet weak var collectionView: UICollectionView!
-    
+ 
     var storyListViewModel: StoryListViewModel {
-        return viewModel as! StoryListViewModel
+        guard let viewModel = viewModel as? StoryListViewModel else {
+            return StoryListViewModel()
+        }
+        return viewModel as StoryListViewModel
     }
     
-    var listUpdateDisposable: Disposable?
+    private let disposeBag = DisposeBag()
     
     override class func storyboardName() -> String {
         return "StoryList"
@@ -24,10 +28,6 @@ class StoryListViewController: ViewController {
     
     override class func identifier() -> String {
         return "StoryListViewController"
-    }
-    
-    override class func viewModelClass() -> ViewModel.Type {
-        return StoryListViewModel.self
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -40,46 +40,40 @@ class StoryListViewController: ViewController {
         }
     }
     
+    func setup(storiesService: StoriesService) {
+        viewModel = StoryListViewModel(storiesService: storiesService)
+        storyListViewModel.fetchNextStories()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        listUpdateDisposable = storyListViewModel
-                .list
-                .subscribe(onNext: { (arrayInsertionDeletion) in
-                    self.update(insertionDeletion: arrayInsertionDeletion, animated: true)
-                    if let footerView = self.collectionView.visibleSupplementaryViews(ofKind: UICollectionElementKindSectionFooter).first as? StoryListFooterView {
-                        footerView.finishRefreshing()
-                    }
-                    }, onError: { (error) in
-                        print(error)
-                    }, onCompleted: nil, onDisposed: nil)
     }
-    
-    func update(insertionDeletion: ArrayInsertionDeletion<Story>?, animated: Bool) {
-        guard let insertionDeletion = insertionDeletion else {
-            return
-        }
-        
-        collectionView.performBatchUpdates({ 
-            if let indexesInserted = insertionDeletion.indexesInserted {
-                self.collectionView.insertItems(at: indexesInserted.indexPaths())
-            }
-            
-            if let indexesUpdated = insertionDeletion.indexesUpdated {
-                self.collectionView.insertItems(at: indexesUpdated.indexPaths())
-            }
-
-            if let indexesDeleted = insertionDeletion.indexesDeleted {
-                self.collectionView.insertItems(at: indexesDeleted.indexPaths())
-            }
-        }, completion: nil)
-    }
-    
+       
     func setupCollectionView() {
         collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.register(UINib(nibName: "StoryListCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "StoryListCollectionViewCell")
         collectionView.register(UINib(nibName: "StoryListFooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "StoryListFooterView")
+        
+        let dataSource = RxCollectionViewArrayInsertionDeletionDataSource<Story>()
+        
+        dataSource.configureCell = { (dataSource, cv, indexPath, element) in
+            let cell = cv.dequeueReusableCell(withReuseIdentifier: "StoryListCollectionViewCell", for: indexPath) as! StoryListCollectionViewCell
+            cell.update(model: element)
+            return cell
+        }
+        
+        dataSource.supplementaryViewFactory = { (dataSource, cv, kind, indexPath) in
+            let view = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "StoryListFooterView", for: indexPath) as! StoryListFooterView
+            view.delegate = self
+            return view
+        }
+        
+        storyListViewModel
+            .storiesList
+            .asObservable()
+            .bindTo(collectionView.rx.items(dataSource: dataSource))
+            .addDisposableTo(disposeBag)
     }
 }
 
@@ -101,24 +95,6 @@ extension StoryListViewController: UICollectionViewDelegate {
     }
 }
 
-extension StoryListViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return storyListViewModel.currentArrayInsertionDeletion.backingArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StoryListCollectionViewCell", for: indexPath) as! StoryListCollectionViewCell
-        cell.update(model: storyListViewModel.currentArrayInsertionDeletion.backingArray[indexPath.row])
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "StoryListFooterView", for: indexPath) as! StoryListFooterView
-        footerView.delegate = self
-        return footerView
-    }
-}
-
 extension StoryListViewController: StoryListFooterViewDelegate {
     func didTapMore() {
         storyListViewModel.fetchNextStories()
@@ -127,7 +103,7 @@ extension StoryListViewController: StoryListFooterViewDelegate {
 
 extension StoryListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let story = storyListViewModel.currentArrayInsertionDeletion.backingArray[indexPath.row]
+        let story: Story = try! collectionView.rx.model(at: indexPath)
         return CGSize(width: collectionView.bounds.width, height: StoryListCollectionViewCell.size(model: story, modelKey: "\(story.id)").height)
     }
     

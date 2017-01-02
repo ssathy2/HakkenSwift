@@ -20,11 +20,19 @@ class StoryListCollectionViewCell: CollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        styleButton()
+    }
+    
+    private func styleButton() {
+        commentsButton.clipsToBounds = false
+        commentsButton.layer.cornerRadius = commentsButtonWidthConstraint.constant/2
+        commentsButton.titleLabel?.textAlignment = .center
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        NSLayoutConstraint.activate([commentsButtonWidthConstraint, urlLabelHeightConstraint])
+        commentsButtonWidthConstraint.constant = 44
+        urlLabelHeightConstraint.constant = 15
     }
     
     override public class func nibName() -> String {
@@ -38,10 +46,12 @@ class StoryListCollectionViewCell: CollectionViewCell {
             return
         }
         dateTimeSubmittedLabel.text = "Submitted \(story.time.relativeDateTimeStringToNow()) by \(story.by)"
-        scoreLabel.text = "\(story.score)"
+        scoreLabel.text = "\(story.score) points"
         titleLabel.text = story.title
         if let descendants = story.descendants.value {
-            commentsButton.titleLabel?.text = "\(descendants)"
+            commentsButton.setTitle("\(descendants)", for: .normal)
+            commentsButton.setTitle("\(descendants)", for: .selected)
+            commentsButton.setTitle("\(descendants)", for: .highlighted)
         }
         else {
             commentsButtonWidthConstraint.constant = 0
@@ -50,7 +60,7 @@ class StoryListCollectionViewCell: CollectionViewCell {
         styleURLLabel(story: story)
     }
     
-    func styleURLLabel(story: Story) {
+    private func styleURLLabel(story: Story) {
         if story.isUserGenerated() {
             urlLabel.text = nil
             urlLabelHeightConstraint.constant = 0

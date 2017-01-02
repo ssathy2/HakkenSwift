@@ -25,8 +25,8 @@ class MainViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        router = Router(splitViewController: containerSplitViewController!, viewControllerMap: [ "StoryList": StoryListViewController.self])
-        router?.root(view: "StoryList", data: nil, animated: true)
+        router = Router(splitViewController: containerSplitViewController!, viewControllerMap: [ "HomeScreen": HomeScreenViewController.self])
+        router?.root(view: "HomeScreen", data: nil, animated: true)
     }
 }
 

@@ -19,7 +19,7 @@ private func lift<T>(x: T) -> Lifted<T>  {
     return Lifted(x)
 }
 
-public func associateObject<T>(object: AnyObject, key: UnsafePointer<Void>, value: T, policy: objc_AssociationPolicy) {
+public func associateObject<T>(object: AnyObject, key: UnsafeRawPointer, value: T, policy: objc_AssociationPolicy) {
     if let v: AnyObject = value as? AnyObject {
         objc_setAssociatedObject(object, key, v,  policy)
     }
@@ -28,7 +28,7 @@ public func associateObject<T>(object: AnyObject, key: UnsafePointer<Void>, valu
     }
 }
 
-public func associatedObjectInitializeIfNil<T>(object: AnyObject, key: UnsafePointer<Void>, policy: objc_AssociationPolicy, initializer: () -> T) -> T {
+public func associatedObjectInitializeIfNil<T>(object: AnyObject, key: UnsafeRawPointer, policy: objc_AssociationPolicy, initializer: () -> T) -> T {
     if let value = associatedObject(object: object, key: key, policy: policy) as T? {
         return value
     }
@@ -39,7 +39,7 @@ public func associatedObjectInitializeIfNil<T>(object: AnyObject, key: UnsafePoi
     }
 }
 
-public func associatedObject<T>(object: AnyObject, key: UnsafePointer<Void>, policy: objc_AssociationPolicy) -> T? {
+public func associatedObject<T>(object: AnyObject, key: UnsafeRawPointer, policy: objc_AssociationPolicy) -> T? {
     if let value = objc_getAssociatedObject(object, key) as? T {
         return value
     }
