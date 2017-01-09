@@ -77,7 +77,12 @@ class HomeScreenViewController: ViewController {
     
     
     var pageViewController: UIPageViewController?
+    var pageViewControllerScrollView: UIScrollView? {
+        return self.pageViewController?.view.subviews.filter { $0 is UIScrollView }.first as? UIScrollView
+    }
 
+    let options: [SlidingTabOption] = [.Top, .New, .Show, .Ask, .Jobs]
+    
     override class func storyboardName() -> String {
         return "HomeScreen"
     }
@@ -92,8 +97,8 @@ class HomeScreenViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageViewController?.delegate = self
         pageViewController?.dataSource = self
+        pageViewControllerScrollView?.delegate = self
         
         setupSlidingTabView()
         if let initialViewController = orderedViewControllers.first {
@@ -105,12 +110,28 @@ class HomeScreenViewController: ViewController {
     }
     
     private func setupSlidingTabView() {
-        slidingTabView.setup(options: [.Top, .New, .Show, .Ask, .Jobs])
+        slidingTabView.delegate = self
+        slidingTabView.setup(options: options)
         slidingTabView.translatesAutoresizingMaskIntoConstraints = false
         slidingTabContainerView.addSubview(slidingTabView)
         slidingTabContainerView.addConstraints(NSLayoutConstraint.fl_layoutConstraints(from: slidingTabContainerView, to: slidingTabView, edges: .all))
         slidingTabContainerView.setNeedsUpdateConstraints()
     }
+    
+    func scrollToViewController(index newIndex: Int) {
+        if let firstViewController = pageViewController?.viewControllers?.first,
+            let currentIndex = orderedViewControllers.index(of: firstViewController) {
+            let direction: UIPageViewControllerNavigationDirection = newIndex >= currentIndex ? .forward : .reverse
+            let nextViewController = orderedViewControllers[newIndex]
+            scrollToViewController(viewController: nextViewController, direction: direction)
+        }
+    }
+    
+    private func scrollToViewController(viewController: UIViewController,
+                                        direction: UIPageViewControllerNavigationDirection = .forward) {
+        pageViewController?.setViewControllers([viewController], direction: direction, animated: true, completion: nil)
+    }
+
 }
 
 extension HomeScreenViewController: UIPageViewControllerDataSource {
@@ -152,6 +173,22 @@ extension HomeScreenViewController: UIPageViewControllerDataSource {
     }
 }
 
-extension HomeScreenViewController: UIPageViewControllerDelegate {
-    
+extension HomeScreenViewController: SlidingTabViewDelegate {
+    func didTapOption(option: SlidingTabOption) {
+        guard let index = options.index(of: option) else {
+            print("Option not found")
+            return
+        }
+        
+        scrollToViewController(index: index)
+    }
+}
+
+extension HomeScreenViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let point = scrollView.contentOffset
+        var percentComplete: CGFloat
+        percentComplete = (point.x - view.frame.size.width)/view.frame.size.width
+        print("percentComplete: \(percentComplete)")
+    }
 }

@@ -35,6 +35,8 @@ class SlidingTabView: UIView {
     weak var delegate: SlidingTabViewDelegate?
     
     var options: [SlidingTabOption] = [SlidingTabOption]()
+    private var currentOption: SlidingTabOption = .Top
+    
     class func instance() -> SlidingTabView? {
         let slidingTabView = UINib(nibName:"SlidingTabView", bundle: nil).instantiate(withOwner: nil, options: nil).first as? SlidingTabView
         slidingTabView?.sharedSetup()
@@ -62,8 +64,9 @@ class SlidingTabView: UIView {
         guard let _ = collectionView.cellForItem(at: IndexPath(row: option, section: 0)) as? SlidingTabCollectionViewCell else {
             return
         }
-        let attriubtes = collectionView.layoutAttributesForItem(at: IndexPath(row: option, section: 0))
-        let newLineRect = CGRect(x: attriubtes!.frame.origin.x, y: 0, width: attriubtes!.frame.width, height: 1.0)
+        currentOption = option
+        let attributes = collectionView.layoutAttributesForItem(at: IndexPath(row: option, section: 0))
+        let newLineRect = CGRect(x: attributes!.frame.origin.x, y: 0, width: attributes!.bounds.width, height: 1.0)
         if animated {
             UIView.animate(withDuration: 0.2, animations: {
                 self.slideLineView.frame = newLineRect
@@ -73,7 +76,7 @@ class SlidingTabView: UIView {
         }
     }
     
-    func didTapView(gestureRecognizer: UIGestureRecognizer) {
+    func update(percentage: CGFloat) {
         
     }
 }

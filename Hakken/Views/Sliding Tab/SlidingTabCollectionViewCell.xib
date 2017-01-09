@@ -22,7 +22,7 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="sRR-v3-xxW" firstAttribute="top" secondItem="iIM-Ma-fRU" secondAttribute="top" constant="5" id="AVC-fY-uK2"/>
+                <constraint firstItem="sRR-v3-xxW" firstAttribute="top" secondItem="iIM-Ma-fRU" secondAttribute="top" id="AVC-fY-uK2"/>
                 <constraint firstAttribute="bottom" secondItem="sRR-v3-xxW" secondAttribute="bottom" id="EJs-Wn-kUU"/>
                 <constraint firstItem="sRR-v3-xxW" firstAttribute="centerX" secondItem="iIM-Ma-fRU" secondAttribute="centerX" id="VbW-4g-1sW"/>
             </constraints>
