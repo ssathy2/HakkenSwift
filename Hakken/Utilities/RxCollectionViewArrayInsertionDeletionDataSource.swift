@@ -14,7 +14,9 @@ import RxCocoa
 class RxCollectionViewArrayInsertionDeletionDataSource<S: TrackableItem>: ArrayInsertionDeletionDataSource<S>, RxCollectionViewDataSourceType {
     
     public typealias Element = ArrayInsertionDeletion<S>
-    
+
+    var dataSet = false
+
     public override init() {
         super.init()
     }
@@ -24,9 +26,10 @@ class RxCollectionViewArrayInsertionDeletionDataSource<S: TrackableItem>: ArrayI
             #if DEBUG
                 self._dataSourceBound = true
             #endif
-            dataSource.setArrayInsertionDeletion(arrayInsertionDeletion: element)
-            // FIXME: Get animated insertion deletion working here!
-//            if element.backingArray.count == 0 {
+
+//            if !self.dataSet {
+//                self.dataSet = true
+                dataSource.setArrayInsertionDeletion(arrayInsertionDeletion: element)
                 collectionView.reloadData()
 //            }
 //            else {
@@ -43,7 +46,7 @@ class RxCollectionViewArrayInsertionDeletionDataSource<S: TrackableItem>: ArrayI
 //                        collectionView.insertItems(at: indexesDeleted.indexPaths())
 //                    }
 //                    }, completion: nil)
-//            }
+//                }
             }.on(observedEvent)
     }
 }

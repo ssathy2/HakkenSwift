@@ -64,7 +64,7 @@ class SlidingTabView: UIView {
         guard let _ = collectionView.cellForItem(at: IndexPath(row: option, section: 0)) as? SlidingTabCollectionViewCell else {
             return
         }
-        currentOption = option
+        currentOption = options[option]
         let attributes = collectionView.layoutAttributesForItem(at: IndexPath(row: option, section: 0))
         let newLineRect = CGRect(x: attributes!.frame.origin.x, y: 0, width: attributes!.bounds.width, height: 1.0)
         if animated {

@@ -33,8 +33,9 @@ enum SlidingTabOption: String, CustomStringConvertible {
 }
 
 class HomeScreenViewController: ViewController {
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var slidingTabContainerView: UIView!
-    private let slidingTabView = SlidingTabView.instance()!
+    let slidingTabView = SlidingTabView.instance()!
     
     lazy var topStoriesView: StoryListViewController = {
         let storyListVC = StoryListViewController.instance() as! StoryListViewController
@@ -74,15 +75,9 @@ class HomeScreenViewController: ViewController {
                 self.askHNStoriesView,
                 self.jobsStoriesView]
     }()
-    
-    
-    var pageViewController: UIPageViewController?
-    var pageViewControllerScrollView: UIScrollView? {
-        return self.pageViewController?.view.subviews.filter { $0 is UIScrollView }.first as? UIScrollView
-    }
 
     let options: [SlidingTabOption] = [.Top, .New, .Show, .Ask, .Jobs]
-    
+    fileprivate let CellReuseIdentifier = "CellReuseIdentifier"
     override class func storyboardName() -> String {
         return "HomeScreen"
     }
@@ -90,23 +85,17 @@ class HomeScreenViewController: ViewController {
     override class func identifier() -> String {
         return "HomeScreenViewController"
     }
-    
-    override func segueIdentifierToContainerViewControllerMapping() -> [String : String]? {
-        return [ "EmbedPageViewController" : "pageViewController" ]
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageViewController?.dataSource = self
-        pageViewControllerScrollView?.delegate = self
-        
+        setupCollectionView()
         setupSlidingTabView()
-        if let initialViewController = orderedViewControllers.first {
-            pageViewController?.setViewControllers([initialViewController],
-                               direction: .forward,
-                               animated: true,
-                               completion: nil)
-        }
+    }
+    
+    private func setupCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: CellReuseIdentifier)
     }
     
     private func setupSlidingTabView() {
@@ -118,59 +107,55 @@ class HomeScreenViewController: ViewController {
         slidingTabContainerView.setNeedsUpdateConstraints()
     }
     
-    func scrollToViewController(index newIndex: Int) {
-        if let firstViewController = pageViewController?.viewControllers?.first,
-            let currentIndex = orderedViewControllers.index(of: firstViewController) {
-            let direction: UIPageViewControllerNavigationDirection = newIndex >= currentIndex ? .forward : .reverse
-            let nextViewController = orderedViewControllers[newIndex]
-            scrollToViewController(viewController: nextViewController, direction: direction)
-        }
+    fileprivate func scrollToViewController(index newIndex: Int) {
+        collectionView.scrollToItem(at: IndexPath(row: newIndex, section: 0), at: .centeredHorizontally, animated: true)
     }
     
-    private func scrollToViewController(viewController: UIViewController,
-                                        direction: UIPageViewControllerNavigationDirection = .forward) {
-        pageViewController?.setViewControllers([viewController], direction: direction, animated: true, completion: nil)
+    fileprivate func host(viewController: UIViewController, inView: UIView) {
+        addChildViewController(viewController)
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        inView.addSubview(viewController.view)
+        inView.addConstraints(NSLayoutConstraint.fl_layoutConstraints(from: inView, to: viewController.view, edges: .all))
+        viewController.didMove(toParentViewController: self)
     }
-
+    
+    fileprivate func unhost(viewController: UIViewController) {
+        viewController.willMove(toParentViewController: nil)
+        viewController.view.removeFromSuperview()
+        viewController.removeFromParentViewController()
+    }
 }
 
-extension HomeScreenViewController: UIPageViewControllerDataSource {
-    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-            guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
-                return nil
-            }
-            
-            let previousIndex = viewControllerIndex - 1
-            
-            guard previousIndex >= 0 else {
-                return nil
-            }
-            
-            guard orderedViewControllers.count > previousIndex else {
-                return nil
-            }
-            
-            return orderedViewControllers[previousIndex]
+extension HomeScreenViewController: UIScrollViewDelegate {
+    
+}
+
+extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return collectionView.bounds.size
+    }
+}
+
+extension HomeScreenViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        host(viewController: orderedViewControllers[indexPath.row], inView: cell.contentView)
     }
     
-    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-            guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
-                return nil
-            }
-            
-            let nextIndex = viewControllerIndex + 1
-            let orderedViewControllersCount = orderedViewControllers.count
-            
-            guard orderedViewControllersCount != nextIndex else {
-                return nil
-            }
-            
-            guard orderedViewControllersCount > nextIndex else {
-                return nil
-            }
-            
-            return orderedViewControllers[nextIndex]
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        unhost(viewController: orderedViewControllers[indexPath.row])
     }
+}
+
+extension HomeScreenViewController: UICollectionViewDataSource {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return orderedViewControllers.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellReuseIdentifier, for: indexPath)
+        return cell
+    }
+    
 }
 
 extension HomeScreenViewController: SlidingTabViewDelegate {
@@ -181,14 +166,5 @@ extension HomeScreenViewController: SlidingTabViewDelegate {
         }
         
         scrollToViewController(index: index)
-    }
-}
-
-extension HomeScreenViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let point = scrollView.contentOffset
-        var percentComplete: CGFloat
-        percentComplete = (point.x - view.frame.size.width)/view.frame.size.width
-        print("percentComplete: \(percentComplete)")
     }
 }

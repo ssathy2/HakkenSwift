@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,44 +21,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vZ-EY-2hr">
-                                <connections>
-                                    <segue destination="Y7p-aT-rBV" kind="embed" identifier="EmbedPageViewController" id="QKn-ls-RG9"/>
-                                </connections>
-                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OmD-3q-TNh">
+                                <rect key="frame" x="0.0" y="20" width="375" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="bZ6-fh-hHJ"/>
                                 </constraints>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pNF-8t-0UT">
+                                <rect key="frame" x="0.0" y="70" width="375" height="597"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AfJ-ug-9K4">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1vZ-EY-2hr" firstAttribute="leading" secondItem="bEO-rv-Kre" secondAttribute="leading" id="1bJ-IG-TqE"/>
                             <constraint firstItem="OmD-3q-TNh" firstAttribute="leading" secondItem="bEO-rv-Kre" secondAttribute="leading" id="4K0-m9-jfg"/>
                             <constraint firstItem="OmD-3q-TNh" firstAttribute="top" secondItem="X2Q-MC-GD4" secondAttribute="bottom" id="6BN-en-XE3"/>
-                            <constraint firstItem="1vZ-EY-2hr" firstAttribute="top" secondItem="OmD-3q-TNh" secondAttribute="bottom" constant="9" id="DoG-i0-TlA"/>
-                            <constraint firstItem="8BV-u3-ZLq" firstAttribute="top" secondItem="1vZ-EY-2hr" secondAttribute="bottom" id="ZiV-e7-GeH"/>
-                            <constraint firstAttribute="trailing" secondItem="1vZ-EY-2hr" secondAttribute="trailing" id="ft8-vd-EaU"/>
+                            <constraint firstAttribute="trailing" secondItem="pNF-8t-0UT" secondAttribute="trailing" id="L00-yx-aZL"/>
+                            <constraint firstItem="pNF-8t-0UT" firstAttribute="top" secondItem="OmD-3q-TNh" secondAttribute="bottom" id="bDB-4v-zu1"/>
+                            <constraint firstItem="8BV-u3-ZLq" firstAttribute="top" secondItem="pNF-8t-0UT" secondAttribute="bottom" id="dmC-ki-mHm"/>
+                            <constraint firstItem="pNF-8t-0UT" firstAttribute="leading" secondItem="bEO-rv-Kre" secondAttribute="leading" id="h9A-47-NlO"/>
                             <constraint firstAttribute="trailing" secondItem="OmD-3q-TNh" secondAttribute="trailing" id="q5J-fm-3Lt"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="collectionView" destination="pNF-8t-0UT" id="rrj-hg-l2P"/>
                         <outlet property="slidingTabContainerView" destination="OmD-3q-TNh" id="bDl-X8-oJY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TfP-hw-MSj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1250.4000000000001" y="58.920539730134934"/>
-        </scene>
-        <!--Page View Controller-->
-        <scene sceneID="pDF-Vv-Oc0">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EhA-0L-iRS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Y7p-aT-rBV" sceneMemberID="viewController"/>
-            </objects>
-            <point key="canvasLocation" x="-513" y="70"/>
         </scene>
     </scenes>
 </document>
