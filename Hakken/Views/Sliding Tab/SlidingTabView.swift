@@ -14,7 +14,7 @@ enum TabState: Int {
 }
 
 protocol SlidingTabViewDelegate: class {
-    func didTapOption(option: SlidingTabOption)
+    func didTapOption(option: SlidingTabOption) 
 }
 
 class SlidingTabCollectionViewCell: CollectionViewCell {
@@ -33,6 +33,8 @@ class SlidingTabView: UIView {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var slideLineView: UIView!
     weak var delegate: SlidingTabViewDelegate?
+    
+    fileprivate var isUserDragging: Bool = false
     
     var options: [SlidingTabOption] = [SlidingTabOption]()
     private var currentOption: SlidingTabOption = .Top
@@ -92,6 +94,40 @@ extension SlidingTabView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         moveLineToOption(option: indexPath.item, animated: true)
         delegate?.didTapOption(option: options[indexPath.row])
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !isUserDragging {
+            return
+        }
+        let contentOffset = scrollView.contentOffset
+        let contentSize = scrollView.contentSize
+        if contentOffset.y < 0 || contentOffset.x + scrollView.bounds.width > contentSize.width {
+            return
+        }
+        
+        let percentageScrolled = contentOffset.x / contentSize.width
+        let targetX = bounds.width * percentageScrolled
+        var rect = slideLineView.frame
+        rect.origin.x = targetX
+        slideLineView.frame = rect
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        isUserDragging = false
+        // figure out what page we're closest to: 0..n-1
+        let contentOffset = targetContentOffset.pointee
+        let pageWidth = scrollView.bounds.width
+        var page = Int(contentOffset.x / pageWidth)
+        let lowerBound = Int(pageWidth) * page
+        if Int(contentOffset.x) - lowerBound >= Int(pageWidth / 2) {
+            page += 1
+        }
+        moveLineToOption(option: page, animated: true)
+    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        isUserDragging = true
     }
 }
 

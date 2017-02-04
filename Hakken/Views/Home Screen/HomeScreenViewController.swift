@@ -35,6 +35,8 @@ enum SlidingTabOption: String, CustomStringConvertible {
 class HomeScreenViewController: ViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var slidingTabContainerView: UIView!
+    @IBOutlet weak var slidingTabHeightConstraint: NSLayoutConstraint!
+    
     let slidingTabView = SlidingTabView.instance()!
     
     lazy var topStoriesView: StoryListViewController = {
@@ -96,6 +98,8 @@ class HomeScreenViewController: ViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: CellReuseIdentifier)
+        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).minimumInteritemSpacing = 0.0
+        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).minimumLineSpacing = 0.0
     }
     
     private func setupSlidingTabView() {
@@ -127,7 +131,17 @@ class HomeScreenViewController: ViewController {
 }
 
 extension HomeScreenViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        slidingTabView.scrollViewDidScroll(scrollView)
+    }
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        slidingTabView.scrollViewWillBeginDragging(scrollView)
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        slidingTabView.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
 }
 
 extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {

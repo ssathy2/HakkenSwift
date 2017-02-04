@@ -72,6 +72,7 @@ class StoryListViewController: ViewController {
         storyListViewModel
             .storiesList
             .asObservable()
+            .retry(2)
             .bindTo(collectionView.rx.items(dataSource: dataSource))
             .addDisposableTo(disposeBag)
     }

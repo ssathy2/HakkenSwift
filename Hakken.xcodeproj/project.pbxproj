@@ -347,7 +347,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = dotdotdot;
 				TargetAttributes = {
 					DE991DBD1BB0CCB5007C489E = {
@@ -575,6 +575,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 11E18790DCE2EC878E7EFD99 /* Pods-Hakken.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Hakken/Info.plist;
@@ -593,6 +594,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51DCDC49875939F2FBFE1935 /* Pods-Hakken.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Hakken/Info.plist;

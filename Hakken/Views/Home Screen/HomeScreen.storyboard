@@ -28,7 +28,7 @@
                                     <constraint firstAttribute="height" constant="50" id="bZ6-fh-hHJ"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pNF-8t-0UT">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pNF-8t-0UT">
                                 <rect key="frame" x="0.0" y="70" width="375" height="597"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AfJ-ug-9K4">
@@ -54,6 +54,7 @@
                     <connections>
                         <outlet property="collectionView" destination="pNF-8t-0UT" id="rrj-hg-l2P"/>
                         <outlet property="slidingTabContainerView" destination="OmD-3q-TNh" id="bDl-X8-oJY"/>
+                        <outlet property="slidingTabHeightConstraint" destination="bZ6-fh-hHJ" id="V1v-y0-xlZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TfP-hw-MSj" userLabel="First Responder" sceneMemberID="firstResponder"/>
