@@ -26,7 +26,7 @@ class RxCollectionViewArrayInsertionDeletionDataSource<S: TrackableItem>: ArrayI
             #if DEBUG
                 self._dataSourceBound = true
             #endif
-
+            // TODO: don't dumbly reload data this way...
 //            if !self.dataSet {
 //                self.dataSet = true
                 dataSource.setArrayInsertionDeletion(arrayInsertionDeletion: element)

@@ -41,30 +41,35 @@ class HomeScreenViewController: ViewController {
     
     lazy var topStoriesView: StoryListViewController = {
         let storyListVC = StoryListViewController.instance() as! StoryListViewController
+        storyListVC.delegate = self
         storyListVC.setup(storiesService: TopStories())
         return storyListVC
     }()
     
     lazy var newStoriesView: StoryListViewController = {
         let storyListVC = StoryListViewController.instance() as! StoryListViewController
+        storyListVC.delegate = self
         storyListVC.setup(storiesService: NewHNStories())
         return storyListVC
     }()
     
     lazy var showStoriesView: StoryListViewController = {
         let storyListVC = StoryListViewController.instance() as! StoryListViewController
+        storyListVC.delegate = self
         storyListVC.setup(storiesService: ShowHNStories())
         return storyListVC
     }()
     
     lazy var jobsStoriesView: StoryListViewController = {
         let storyListVC = StoryListViewController.instance() as! StoryListViewController
+        storyListVC.delegate = self
         storyListVC.setup(storiesService: JobHNStories())
         return storyListVC
     }()
     
     lazy var askHNStoriesView: StoryListViewController = {
         let storyListVC = StoryListViewController.instance() as! StoryListViewController
+        storyListVC.delegate = self
         storyListVC.setup(storiesService: AskHNStories())
         return storyListVC
     }()
@@ -180,5 +185,19 @@ extension HomeScreenViewController: SlidingTabViewDelegate {
         }
         
         scrollToViewController(index: index)
+    }
+}
+
+extension HomeScreenViewController: StoryListViewDelegate {
+    func listViewDidScroll(_ collectionView: UICollectionView) {
+        //TODO: Implement me
+    }
+    
+    func listViewWillEndDragging(_ collectionView: UICollectionView, targetContentOffset: CGPoint) {
+        //TODO: Implement me
+    }
+    
+    func listViewWillBeginDragging(_ collectionView: UICollectionView) {
+        //TODO: Implement me
     }
 }

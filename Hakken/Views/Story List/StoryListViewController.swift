@@ -10,10 +10,17 @@ import UIKit
 import RxCocoa
 import RxSwift
 
+protocol StoryListViewDelegate: class {
+    func listViewDidScroll(_ collectionView: UICollectionView)
+    func listViewWillBeginDragging(_ collectionView: UICollectionView)
+    func listViewWillEndDragging(_ collectionView: UICollectionView, targetContentOffset: CGPoint)
+}
+
 class StoryListViewController: ViewController {
     @IBOutlet weak var collectionView: UICollectionView!
  
-    var storyListViewModel: StoryListViewModel {
+    weak var delegate: StoryListViewDelegate?
+    fileprivate var storyListViewModel: StoryListViewModel {
         guard let viewModel = viewModel as? StoryListViewModel else {
             return StoryListViewModel()
         }
@@ -80,11 +87,20 @@ class StoryListViewController: ViewController {
 
 extension StoryListViewController: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        delegate?.listViewDidScroll(collectionView)
         guard let footerView = self.collectionView.visibleSupplementaryViews(ofKind: UICollectionElementKindSectionFooter).first as? StoryListFooterView else {
             return
         }
         
         footerView.scrollViewDidScroll(scrollView: scrollView)
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        delegate?.listViewWillEndDragging(collectionView, targetContentOffset: targetContentOffset.pointee)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        delegate?.listViewWillBeginDragging(collectionView)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
