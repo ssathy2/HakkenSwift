@@ -189,6 +189,10 @@ extension HomeScreenViewController: SlidingTabViewDelegate {
 }
 
 extension HomeScreenViewController: StoryListViewDelegate {
+    func listViewDidTap(story: Story) {
+        router?.push(view: "StoryDisplay", data: story, animated: true)
+    }
+    
     func listViewDidScroll(_ collectionView: UICollectionView) {
         //TODO: Implement me
     }

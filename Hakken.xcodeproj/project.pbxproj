@@ -40,6 +40,8 @@
 		28F085291E11ED5C001B73D3 /* HomeScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28F085281E11ED5C001B73D3 /* HomeScreen.storyboard */; };
 		28F0852B1E11EE57001B73D3 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F0852A1E11EE57001B73D3 /* HomeScreenViewController.swift */; };
 		6EE7E5D992FFB92D2F2F263F /* Pods_Hakken.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EF4B25274871FAE1CE17FC8 /* Pods_Hakken.framework */; };
+		DE29E7C61E4F94B6000416D5 /* StoryDisplay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE29E7C51E4F94B6000416D5 /* StoryDisplay.storyboard */; };
+		DE29E7C81E4F9582000416D5 /* StoryDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE29E7C71E4F9582000416D5 /* StoryDisplayViewController.swift */; };
 		DE5D39301DAD85450075E5BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE5D392F1DAD85450075E5BC /* LaunchScreen.storyboard */; };
 		DE620D341DF47678005781B0 /* Dictionary+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE620D331DF47678005781B0 /* Dictionary+Serialization.swift */; };
 		DE620D381DF47B57005781B0 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE620D371DF47B57005781B0 /* DateFormatterManager.swift */; };
@@ -88,6 +90,8 @@
 		28F0852A1E11EE57001B73D3 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		51DCDC49875939F2FBFE1935 /* Pods-Hakken.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hakken.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hakken/Pods-Hakken.release.xcconfig"; sourceTree = "<group>"; };
 		5EF4B25274871FAE1CE17FC8 /* Pods_Hakken.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hakken.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE29E7C51E4F94B6000416D5 /* StoryDisplay.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryDisplay.storyboard; sourceTree = "<group>"; };
+		DE29E7C71E4F9582000416D5 /* StoryDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryDisplayViewController.swift; sourceTree = "<group>"; };
 		DE5D392F1DAD85450075E5BC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE620D331DF47678005781B0 /* Dictionary+Serialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Serialization.swift"; sourceTree = "<group>"; };
 		DE620D371DF47B57005781B0 /* DateFormatterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 		28F085051E11E6CF001B73D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DE29E7C41E4F94A3000416D5 /* Story Display */,
 				28A67CBE1E1AE3BD00119324 /* Sliding Tab */,
 				28F085061E11E6CF001B73D3 /* Base */,
 				28F0850D1E11E6CF001B73D3 /* Story List */,
@@ -202,6 +207,15 @@
 				5EF4B25274871FAE1CE17FC8 /* Pods_Hakken.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DE29E7C41E4F94A3000416D5 /* Story Display */ = {
+			isa = PBXGroup;
+			children = (
+				DE29E7C51E4F94B6000416D5 /* StoryDisplay.storyboard */,
+				DE29E7C71E4F9582000416D5 /* StoryDisplayViewController.swift */,
+			);
+			path = "Story Display";
 			sourceTree = "<group>";
 		};
 		DE5D392B1DAD84F20075E5BC /* Models */ = {
@@ -382,6 +396,7 @@
 				DE991DC91BB0CCB5007C489E /* Assets.xcassets in Resources */,
 				28F085201E11E6CF001B73D3 /* StoryListCollectionViewCell.xib in Resources */,
 				DE5D39301DAD85450075E5BC /* LaunchScreen.storyboard in Resources */,
+				DE29E7C61E4F94B6000416D5 /* StoryDisplay.storyboard in Resources */,
 				28F085291E11ED5C001B73D3 /* HomeScreen.storyboard in Resources */,
 				28F0851C1E11E6CF001B73D3 /* Main.storyboard in Resources */,
 				28F085221E11E6CF001B73D3 /* StoryListFooterView.xib in Resources */,
@@ -448,6 +463,7 @@
 			files = (
 				281BA1441E0F741400BC50AB /* DateFormatter+Convienience.swift in Sources */,
 				28F0851D1E11E6CF001B73D3 /* MainViewController.swift in Sources */,
+				DE29E7C81E4F9582000416D5 /* StoryDisplayViewController.swift in Sources */,
 				28A67CBD1E1AD11200119324 /* RxCollectionViewArrayInsertionDeletionDataSource.swift in Sources */,
 				DE64E3E41DAD8838001987E5 /* HackernewsModel.swift in Sources */,
 				28F085211E11E6CF001B73D3 /* StoryListFooterView.swift in Sources */,

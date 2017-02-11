@@ -14,6 +14,7 @@ protocol StoryListViewDelegate: class {
     func listViewDidScroll(_ collectionView: UICollectionView)
     func listViewWillBeginDragging(_ collectionView: UICollectionView)
     func listViewWillEndDragging(_ collectionView: UICollectionView, targetContentOffset: CGPoint)
+    func listViewDidTap(story: Story)
 }
 
 class StoryListViewController: ViewController {
@@ -86,6 +87,9 @@ class StoryListViewController: ViewController {
 }
 
 extension StoryListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.listViewDidTap(story: try! collectionView.rx.model(at: indexPath))
+    }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.listViewDidScroll(collectionView)
         guard let footerView = self.collectionView.visibleSupplementaryViews(ofKind: UICollectionElementKindSectionFooter).first as? StoryListFooterView else {
